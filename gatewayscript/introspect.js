@@ -3,10 +3,10 @@ let urlopen = require ('urlopen');
 let hm = require('header-metadata');
 
 let azheader = (hm.current.get('authorization') || '').split(" ");
-if (azheader.length !== 2) {
+if (azheader.length !== 2 || azheader[0] !== 'Bearer') {
     hm.response.statusCode = 401;
     session.output.write('');
-    // session.reject("no authorization header provided");
+    // session.reject("no authorization bearer header provided");
 }
 
 let data = 'token_type_hint=access_token&token=' + azheader[1];
